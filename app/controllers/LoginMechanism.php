@@ -20,12 +20,17 @@ class LoginMechanism
         $jsonData = json_decode($json, true);
         if(file_exists($data["mobileNum"] .".json")){
 
-            if($data['password'] === $jsonData['password']) {
+            if($data['username'] === $jsonData['username'] ) {
 
-                return (["Success" => "You're logged in"]);
+                if ($data['password'] === $jsonData['password']) {
+
+                    return (["Success" => "You're logged in"]);
+                }
+
+                return(['Login Failed' => "Incorrect Password"]);
             }
 
-            return(["Login Failed" => "Password is incorrect"]);
+            return(["Login Failed" => "Username is incorrect"]);
         }
 
         return (["Failed" => "Please Signup First"]);
