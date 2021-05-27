@@ -6,7 +6,6 @@ namespace App\controllers;
 
 class LoginMechanism
 {
-
     public function signup($data){
         if(!$this->saveDetails($data)){
             return(["error" => "User already Exist with the same Mobile Number"]);
@@ -17,24 +16,24 @@ class LoginMechanism
     public function login($data) {
         $file = $this->fileWithUserMobileNumber($data['mobileNum']);
         $json = file_get_contents($file);
+
+        if(!$json) {
+            return (["Failed" => "Please Signup First"]);
+        }
+
         $jsonData = json_decode($json, true);
-        if(file_exists($data["mobileNum"] .".json")){
+//        print_r($jsonData);
 
-            if($data['username'] === $jsonData['username'] ) {
-
-                if ($data['password'] === $jsonData['password']) {
-
-                    return (["Success" => "You're logged in"]);
-                }
-
-                return(['Login Failed' => "Incorrect Password"]);
-            }
-
+        if($data['username'] !== $jsonData['username'] ) {
             return(["Login Failed" => "Username is incorrect"]);
         }
 
-        return (["Failed" => "Please Signup First"]);
-    }
+        if ($data['password'] === $jsonData['password']) {
+                return (["Success" => "You're logged in"]);
+        }
+
+        return(['Login Failed' => "Incorrect Password"]);
+        }
 
     private function saveDetails($data) : bool {
         //saveDetails to JSON File

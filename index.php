@@ -1,6 +1,6 @@
 <?php
 
-require  getcwd() . '/vendor/autoload.php';
+require  __DIR__ . '/vendor/autoload.php';
 
 $requestUri = str_replace('firstApp/api/', '', $_SERVER['REQUEST_URI']);
 $requestUri = explode('/', $requestUri);
@@ -10,4 +10,4 @@ $requestUri = array_values($requestUri);
 $requestUri = implode('/',$requestUri);
 $_SERVER['REQUEST_URI'] = $requestUri;
 
-require getcwd() . '/app/api/' . $file . '.php';
+require __DIR__ . '/app/api/' . $file . '.php';

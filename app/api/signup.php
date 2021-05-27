@@ -16,7 +16,6 @@ $app->post('/signup', function($request, $response){
 
     $mechanism = new LoginMechanism();
     $res = $mechanism->signup($data);
-
     return $response->withJson($res);
 });
 
